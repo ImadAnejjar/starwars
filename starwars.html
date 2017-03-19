@@ -33,40 +33,58 @@
 
         var letters = [{
   'author': '- Yoda',
-  'quote': 'When 900 years old, you reach… Look as good, you will not.'
+  'quote': 'When 900 years old, you reach… Look as good, you will not.',
+  'image': 'img/yoda.jpg'
 }, {
   'author': '- Senator palpatine',
-  'quote': 'The Dark Side of the Force is the pathway to many abilities some consider to be.. Unnatural.'
+  'quote': 'The Dark Side of the Force is the pathway to many abilities some consider to be.. Unnatural.',
+  'image': 'img/palpatine.jpg'
 }, {
   'author': '- Count Dooku',
-  'quote': 'I sense great fear in you, Skywalker. You have hate… you have anger… but you don’t use them.'
+  'quote': 'I sense great fear in you, Skywalker. You have hate… you have anger… but you don’t use them.',
+    'image': 'img/doku.jpg'
+
 }, {
   'author': '- Darth vader',
-  'quote': 'Luke, you can destroy the Emperor. He has foreseen this. It is your destiny. Join me, and together we can rule the galaxy as father and son.'
+  'quote': 'Luke, you can destroy the Emperor. He has foreseen this. It is your destiny. Join me, and together we can rule the galaxy as father and son.',
+    'image': 'img/vador.jpg'
+
 }, {
   'author': '- Princess leila',
-  'quote': 'Aren\'t you a little short for a storm trooper?'
+  'quote': 'Aren\'t you a little short for a storm trooper?',
+  'image': 'img/leia.jpg'
+
 }, {
   'author': '- Yoda',
-  'quote': 'Mmm. Lost a planet, Master Obi-Wan has. How embarrassing.'
+  'quote': 'Mmm. Lost a planet, Master Obi-Wan has. How embarrassing.',
+  'image': 'img/yoda.jpg'
 }, {
   'author': '- Qui-Gon Jinn',
-  'quote': 'Your focus determines your reality'
+  'quote': 'Your focus determines your reality',
+  'image': 'img/QuiGon.jpg'
+
 }, {
   'author': '- Yoda',
-  'quote': 'Do. Or do not. There is no try.'
+  'quote': 'Do. Or do not. There is no try.',
+  'image': 'img/yoda.jpg'
 }, {
   'author': '- Obi-Wan-Kenobi',
-  'quote': 'In my experience there is no such thing as luck.'
+  'quote': 'In my experience there is no such thing as luck.',
+  'image': 'img/obiwan.jpg'
+
 }, {
   'author': '- Yoda',
-  'quote': 'If once you start down the dark side, forever will it dominate your destiney, consume you it will, as it did Obi-Wan\'s apprentice'
+  'quote': 'If once you start down the dark side, forever will it dominate your destiney, consume you it will, as it did Obi-Wan\'s apprentice',
+  'image': 'img/yoda.jpg'
 }, {
   'author': '- Darth Vader',
-  'quote': 'The Force is strong with this one.'
+  'quote': 'The Force is strong with this one.',
+  'image': 'img/vador.jpg'
+
 }];
          
 
+    
 
         </script>
   
@@ -105,11 +123,16 @@
 
     });
 
-    var Letter = React.createClass({
+  
+
+
+var Letter = React.createClass({
 
         render : function () {
-            var classname = this.state.selected ? 'selected' : '';
-            return (<div className={classname} onClick={this.handleClick}>{this.props.itemValue.author}</div>);
+            var classname = this.state.selected ? 'elements selected' : 'elements others';
+            return (<div className={classname}>
+                <img src={this.props.itemValue.image} width="135" height="135" onClick={this.handleClick}/>
+                </div>);
         },
 
         getInitialState : function () {
@@ -121,7 +144,10 @@
             this.setState({selected : true});
         }
     });
-              
+
+
+
+
 
     var Score = React.createClass({
 
@@ -224,25 +250,60 @@
     </script>
 </body>
 
+
+         
+
 <body>
-<div class="random">
-<p>Get a random quote</p>
-      <button  id="random" onclick="getrandquote();">Hasard</button>
-    </div>
-  </div>
-    <div id="acontainer"></div>
-    <div id="qcontainer"></div>
 
-   <script type="text/jsx">
-   
-  function getrandquote()
-{
-  var randquote = Math.floor((Math.random() * letters.length) + 1);
-  React.render({letters[randquote].quote}, document.getElementById('qcontainer'));
-  React.render({letters[randquote].author}, document.getElementById('author'));
-}
+    <div id="root4"></div>
 
-    </script>
+    <script type="text/javascript" src="../react/react.js"></script>
+    <script type="text/javascript" src="../react/JSXTransformer.js"></script>
+   <script type="text/javascript">
+    
+    
+
+        </script>
+    
+ <script type="text/jsx">
+
+
+
+ var Random = React.createClass({
+
+        generateRandom: function(){
+          var rand = Math.floor(Math.random() * 11);
+          this.setState({
+            random_author: letters[rand].author, 
+            random_quote: letters[rand].quote,
+            random_img : letters[rand].image
+          });
+        },
+        getInitialState: function(){
+           return {
+             random: '',
+             random_quote: '',
+             random_img: ''
+           }
+        },
+        render: function(){
+          return (
+            <div>
+              <button type="button" onClick={this.generateRandom}>Generate a random quote</button>
+            <img src={this.state.random_img} width="135" height="135" onClick={this.handleClick}/>
+
+              {this.state.random_author} : {this.state.random_quote}
+            </div>
+          );
+        }
+      });
+
+
+      React.render(<Random />, document.getElementById('root4'));
+
+</script>
+
+
 </body>
 
 </html>
